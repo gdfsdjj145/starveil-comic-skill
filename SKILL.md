@@ -64,9 +64,10 @@ Read `references/local-project-workspace.md` for exact JSON schemas and sync rul
   - In Antigravity / MCP Apps hosts: opens the persistent DaVinci-style side pane live.
   - In CLI agents (Claude Code / Cursor / Codex / OpenClaw): share the returned passwordless `liveStudioUrl` so the user can inspect beside their terminal.
 
-### 4. Inspect, Box-Repair & Checkpoint Locally (`get_comic_page`, `edit_comic_page`)
-- Poll `get_comic_page({ taskId })` until `ready: true`, download `latestDownloadUrl` (valid 10 min) into `episodes/epXX/pages/pXX.png`, and visually inspect it against `references/visual-qa-and-box-repair.md`.
-- If a single speech bubble has a typo or a hand/prop drifts, **never reroll the whole page** — call `edit_comic_page({ taskId, instruction, region: { x, y, width, height }, clientRequestId })` with a 2%–3% halo margin around the target balloon/element, then refresh `open_starveil_studio({ taskId })` for Before/After wipe verification.
+### 4. Deterministic Bubble QA, Box-Repair & Checkpoint Locally (`get_comic_page`, `edit_comic_page`)
+- Poll `get_comic_page({ taskId })` until `ready: true` (leave `inspectBubbles: false` while polling).
+- Once `ready: true`, call **`get_comic_page({ taskId, inspectBubbles: true })`** (free, KV-cached per `versionId`) to get machine-detected `bubbleQa.detectedBubbles`, literal `ocrText`, automatic `typoAlerts`, and pixel-accurate `0..1` `editRegion` coordinates (+2.5% halo buffer) — plus download `latestDownloadUrl` (valid 10 min) into `episodes/epXX/pages/pXX.png` to visually check artwork & anatomy against `references/visual-qa-and-box-repair.md`.
+- If `bubbleQa.typoAlerts` flags a misspelled bubble (or visual QA spots a drifted hand/prop), **never reroll the whole page** — pass `alert.editRegion` and `alert.suggestedInstruction` directly into `edit_comic_page({ taskId, instruction, region, clientRequestId })`, then refresh `open_starveil_studio({ taskId })` for Before/After wipe verification.
 - Record `{ pageNo, taskId, versionId, previousTaskId, characterIds, localPath, readerUrl }` in `episodes/epXX/manifest.json`.
 
 ### 5. Chain Sequels, Vertical Webtoons & 6-Language Exports

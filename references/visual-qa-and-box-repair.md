@@ -1,6 +1,28 @@
 # Reference: Visual QA & 3-Zone Bounding-Box Repair
 
-Never deliver a comic page blindly without visually inspecting the rendered PNG. Download `latestDownloadUrl` (valid 10 minutes) right after `get_comic_page` returns `ready: true`, inspect it directly (or in StarVeil Studio 2.0), and apply surgical repair only where needed.
+Never deliver a comic page blindly without verifying lettering and artwork. StarVeil 2.0 gives agents **two complementary QA passes**:
+1. **Deterministic Machine Bubble QA (`get_comic_page({ taskId, inspectBubbles: true })`)**: Free & KV-cached per `versionId` (works even in headless CLI / OpenClaw without vision tokens!). Returns every detected speech bubble's literal `ocrText`, exact `0..1` `bbox`, pre-padded **`editRegion`** (+2.5% halo buffer), `typoAlerts`, and `missingExpectedLines` diffed against your quoted script.
+2. **Visual PNG Inspection**: Download `latestDownloadUrl` (valid 10 minutes) and inspect faces, hands, tails, and panel framing visually (or in StarVeil Studio 2.0).
+
+---
+
+## 0. Automated Zero-Typo Loop (No Manual Coordinate Guessing!)
+
+```json
+// Step A: After ready=true, run deterministic bubble QA once
+{ "tool": "get_comic_page", "arguments": { "taskId": "<taskId>", "inspectBubbles": true } }
+
+// Step B: If bubbleQa.typoAlerts is non-empty, pass alert.editRegion straight into edit_comic_page
+{
+  "tool": "edit_comic_page",
+  "arguments": {
+    "taskId": "<taskId>",
+    "clientRequestId": "auto-fix-b1",
+    "instruction": "<alert.suggestedInstruction>",
+    "region": "<alert.editRegion>"
+  }
+}
+```
 
 ---
 
