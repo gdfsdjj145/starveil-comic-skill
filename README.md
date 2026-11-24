@@ -8,6 +8,7 @@
   <a href="https://starveilai.com/SKILL.md"><img src="https://img.shields.io/badge/MCP-Streamable_HTTP-0E1016?style=for-the-badge" alt="MCP Streamable HTTP" /></a>
   <a href="https://starveilai.com/pricing"><img src="https://img.shields.io/badge/Free_Trial-1st_Page_+_1st_Edit_0_cr-10B981?style=for-the-badge" alt="Free Trial" /></a>
   <a href="./LICENSE"><img src="https://img.shields.io/badge/Skill_License-MIT-525866?style=for-the-badge" alt="MIT License" /></a>
+  <a href="https://glama.ai/mcp/connectors/com.starveilai/star-veil-ai"><img src="https://glama.ai/mcp/connectors/com.starveilai/star-veil-ai/badges/score.svg" alt="StarVeil AI MCP connector on Glama" height="28" /></a>
 </p>
 
 <p align="center">
