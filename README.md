@@ -6,7 +6,7 @@
 
 <p align="center">
   <a href="https://starveilai.com"><img src="https://img.shields.io/badge/StarVeil_2.0-Live_Studio-6D4AFF?style=for-the-badge" alt="StarVeil 2.0" /></a>
-  <a href="https://registry.modelcontextprotocol.io/v0.1/servers/com.starveilai%2Fstar-veil-ai/versions/latest"><img src="https://img.shields.io/badge/Official_MCP_Registry-Active-10B981?style=for-the-badge" alt="Official MCP Registry" /></a>
+  <a href="https://registry.modelcontextprotocol.io/v0.1/servers/com.starveilai%2Fcomic-webtoon-studio/versions/latest"><img src="https://img.shields.io/badge/Official_MCP_Registry-comic--webtoon--studio-10B981?style=for-the-badge" alt="Official MCP Registry" /></a>
   <a href="https://starveilai.com/pricing"><img src="https://img.shields.io/badge/Free_Trial-1st_Page_+_1st_Edit_0_cr-0E1016?style=for-the-badge" alt="Free Trial" /></a>
   <a href="./LICENSE"><img src="https://img.shields.io/badge/Skill_License-MIT-525866?style=for-the-badge" alt="MIT License" /></a>
   <a href="https://glama.ai/mcp/connectors/com.starveilai/star-veil-ai"><img src="https://glama.ai/mcp/connectors/com.starveilai/star-veil-ai/badges/score.svg" alt="StarVeil AI MCP connector on Glama" height="28" /></a>
@@ -45,7 +45,7 @@ starveil-comic-skill/
 ```
 
 ### Key Capabilities
-- **Bring Your Own Local Assets (Zero Lock-In)** — Keep `bible.md`, `cast/` photos, `episodes/ep01/script.md`, downloaded PNGs, and `manifest.json` right inside your local folder or Git repo. Switch from Claude Code to Cursor next week and resume Page 6 seamlessly via `previousTaskId`.
+- **Bring Your Own Local Assets (Zero Lock-In)** — Native support for **Obsidian Fiction Vaults** (`Characters/*.md` YAML frontmatter), **Fountain `.fountain` comic scripts**, and **SillyTavern / Chub `chara_card_v2` PNG character cards** (`starveil oc import ./card.png` auto-extracts lore & locks the portrait at **0 credits**!). Switch from Claude Code to Cursor next week and resume Page 6 seamlessly via `manifest.json` + `previousTaskId`.
 - **Persistent OC Identity Vault (0 credits for photo lock)** — Sync local photos or character sheets once (`create_character`) and cache `localName ↔ characterId` in `starveil-project.json`.
 - **Native Live Studio 2.0 Side Pane + Companion URL** — Embedded MCP App inside **Antigravity**, plus passwordless **Companion Live Studio URLs** for **Claude Code, Cursor, Codex, and OpenClaw**.
 - **Drag-to-Box Surgical Self-Editing** — Fix one typo, speech bubble, or hand inside a `0..1` normalized box (`edit_comic_page`) and verify with a **Before / After Wipe Slider**.
@@ -135,7 +135,7 @@ curl -fsSL https://starveilai.com/install.sh | bash
 
 ## Links
 
-- 🌐 **Official MCP Registry**: [com.starveilai/star-veil-ai@2.0.0](https://registry.modelcontextprotocol.io/v0.1/servers/com.starveilai%2Fstar-veil-ai/versions/latest)
+- 🌐 **Official MCP Registry**: [com.starveilai/comic-webtoon-studio](https://registry.modelcontextprotocol.io/v0.1/servers/com.starveilai%2Fcomic-webtoon-studio/versions/latest) · [com.starveilai/star-veil-ai](https://registry.modelcontextprotocol.io/v0.1/servers/com.starveilai%2Fstar-veil-ai/versions/latest)
 - 🟢 **Glama Verified Healthy Connector**: [glama.ai/mcp/connectors/com.starveilai/star-veil-ai](https://glama.ai/mcp/connectors/com.starveilai/star-veil-ai)
 - 📖 **Live `SKILL.md` Spec**: [starveilai.com/SKILL.md](https://starveilai.com/SKILL.md)
 - 🛠️ **Agent Docs & 18 Tools**: [starveilai.com/agents](https://starveilai.com/agents)

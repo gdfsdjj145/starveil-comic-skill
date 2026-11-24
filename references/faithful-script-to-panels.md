@@ -52,7 +52,30 @@ Panel 4 (Dramatic low-angle payoff): [Visual twist or punchline that moves the p
 
 ---
 
-## 4. Anti-Copy Page 2+ Continuation (`previousTaskId`)
+## 4. Importing Fountain Comic Scripts (`.fountain`) Verbatim
+Many indie comic writers author scripts in plain-text **Fountain** format (Antony Johnston / comic-Fountain convention):
+
+```fountain
+**PAGE 1**
+
+_PANEL 1_
+ESTABLISHING SHOT - NEON CITY (NIGHT)
+Rain-slicked streets reflect holographic ads. DETECTIVE VANCE lights a cigarette.
+
+VANCE (V.O.)
+The city never sleeps. It just changes its nightmares.
+
+_PANEL 2_
+CLOSE UP - VANCE'S FACE
+Cybernetic eye ticks red.
+```
+
+**Mapping Rule (Zero Rewrite)**:
+- Split strictly on `**PAGE N**` (or `===` page breaks) → 1 `create_comic_page` call per page.
+- Map each `_PANEL K_` heading directly to `Panel K (...)`, keeping shot cues (`ESTABLISHING SHOT`, `CLOSE UP`), action lines, `(V.O.)` / `(CAPTION)` boxes, and verbatim dialogue in `"double quotes"`.
+- Only ask before splitting a panel when a single character block exceeds ~25 English words / ~35 CJK characters.
+
+## 5. Anti-Copy Page 2+ Continuation (`previousTaskId`)
 When generating Page 2+ with `previousTaskId`:
 - Explicitly start with *"Direct continuation after the previous page; use a fresh, distinct panel layout."*
 - Briefly anchor the handoff state (*"Still wearing the rain-soaked trench coat, holding the silver lighter from the last panel"*).

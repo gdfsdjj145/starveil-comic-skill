@@ -1,0 +1,26 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "com.starveilai/comic-webtoon-studio",
+  "title": "StarVeil AI — Comic, Manga & Webtoon Studio",
+  "description": "AI comic, manga & webtoon MCP studio: 0-cr photo OC lock, box-edit & 6-lang translation.",
+  "version": "2.0.0",
+  "websiteUrl": "https://starveilai.com/agents",
+  "icons": [
+    {
+      "src": "https://starveilai.com/logo.png",
+      "mimeType": "image/png",
+      "sizes": ["500x500"]
+    }
+  ],
+  "repository": {
+    "url": "https://github.com/gdfsdjj145/starveil-comic-skill",
+    "source": "github",
+    "id": "1468897625"
+  },
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://starveilai.com/api/mcp"
+    }
+  ]
+}

@@ -95,7 +95,30 @@ When the user says *"Continue Episode 1 Page 4"* (even in a fresh chat or differ
 
 ---
 
-## 3. Working With Existing User Material (Novel / Obsidian / Codebase)
+## 3. Working With Existing User Material (Obsidian / Fountain / SillyTavern / Codebases)
+
+### A. Obsidian Fiction Vaults (Auto-Detect Without Reorganizing)
+Many long-form writers keep an Obsidian Story Bible shaped like:
+```text
+My Novel Vault/
+├── 01_Manuscript/Act I/Chapter 01/Scene 1.md   (or Longform scenes)
+├── 02_Worldbuilding/
+│   ├── Characters/*.md                         (one note per OC with YAML frontmatter)
+│   ├── Locations/*.md
+│   └── Bestiary & Items/*.md
+└── 04_Outlines & Plots/
+```
+- **Rule**: Never move or rename the user's Obsidian folders. Read their `Characters/*.md` YAML frontmatter (`name`, `appearance`, `outfit`, `age`, `traits`) and `Locations/*.md` directly in place, and store only `starveil-project.json` + `episodes/epXX/manifest.json` in a clean `comic-output/` subfolder (or vault root if requested).
+
+### B. SillyTavern / Chub `chara_card_v2` & `v3` PNG Character Cards (0-Credit 1-Command Import!)
+If the user brings `.png` character cards exported from SillyTavern, Chub, or Lorebook tools (which embed JSON metadata inside PNG `tEXt` `chara` / `ccv3` chunks):
+- Run `starveil oc import ./path/to/card.png --project ./starveil-project.json` (or `--dry-run` first to inspect).
+- The CLI parses the embedded JSON locally, builds a clean visual identity summary, uploads the exact PNG portrait to StarVeil at **0 credits** (`create_character`), and records the resulting `characterId` into `starveil-project.json` automatically.
+
+### C. Fountain Comic Scripts (`.fountain`)
+If the user brings `.fountain` comic scripts (`**PAGE 1**`, `_PANEL 1_`, `ALL CAPS CHARACTER` + indented dialogue + `(V.O.)` captions), parse each `**PAGE X**` block 1-to-1 into `create_comic_page` without rewriting dialogue. See `references/faithful-script-to-panels.md` for exact mapping rules.
+
+### D. Long Novel Chapters & Codebases
 - **Long Novel Chapters (`5,000+ words`)**: Do not stuff a full chapter into one prompt. First produce a concise scene-beat table (`episodes/epXX/script.md`) mapping 1 chapter → 4–8 comic pages, confirm which pages to render first (start with Page 1 as a visual pilot!), and render sequentially.
 - **Git Repo / Release Notes / Blog Posts**: Read `git log`, `CHANGELOG.md`, or the article directly from disk; extract 1 clear narrative arc (Problem → Turning Point → Punchline) rather than listing dry bullet points.
 - **Cost Transparency**: Before batch-rendering `N` pages, state exact credit math upfront (`N × 25 cr` for 3:4 pages; `10 cr/page` per translation; `0 cr` for photo OC uploads; `1st page + 1st edit free` on new accounts).

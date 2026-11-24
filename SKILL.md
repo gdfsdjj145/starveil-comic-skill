@@ -8,7 +8,7 @@ description: Plug-in comic & webtoon production desk (SKILL + Streamable HTTP MC
 StarVeil AI (`https://starveilai.com/api/mcp`) is a **plug-in comic production desk**, not a restrictive black-box story writer.
 
 ## Core Principle: Your Host Agent Stays the Writer & File Manager
-- **Use the user's existing local materials first**: Read their local novel chapters, Markdown scripts, Obsidian notes, world-building bibles, product docs, git changelogs, or `cast/` character image folders directly from disk. Never ask the user to copy-paste assets into a closed web form.
+- **Use the user's existing local materials first**: Read their local novel chapters, Obsidian vaults (`Characters/*.md` YAML frontmatter), Fountain `.fountain` comic scripts, SillyTavern `chara_card_v2` PNG character cards (`starveil oc import ./card.png`), product docs, git changelogs, or `cast/` image folders directly from disk. Never ask the user to copy-paste assets into a closed web form.
 - **Respect the author's voice**: Never hijack plot beats or rewrite dialogue tone unless the user asks you to brainstorm. Your job as director is faithful visual translation, clean panel pacing, legible balloons, and asset continuity.
 - **Let StarVeil MCP do what LLMs cannot**: 0-credit persistent photo OC locking, anti-copy `previousTaskId` multi-page rendering, `0..1` drag-to-box speech-bubble/detail repair, 6-language art-preserving localization, and the DaVinci-style Live Studio 2.0 canvas.
 
@@ -22,7 +22,7 @@ StarVeil AI (`https://starveilai.com/api/mcp`) is a **plug-in comic production d
 
 ## Setup & Authentication
 - **Streamable HTTP MCP**: `https://starveilai.com/api/mcp`
-- **Official MCP Registry**: `com.starveilai/star-veil-ai` · **Glama**: Verified Healthy (`18` agent tools + Live MCP App)
+- **Official MCP Registry**: `com.starveilai/comic-webtoon-studio` & `com.starveilai/star-veil-ai` · **Glama**: Verified Healthy (`18` agent tools + Live MCP App)
 - **Claude Code (OAuth 2.1)**: `claude mcp add --transport http starveil https://starveilai.com/api/mcp`
 - **Universal Installer (Antigravity / Claude Code / Cursor / Codex / CLI)**: `curl -fsSL https://starveilai.com/install.sh | bash`
 - **Headless / OpenClaw / n8n / CI**: Pass `Authorization: Bearer sv_live_...` (create at `https://starveilai.com/app/agents`).
