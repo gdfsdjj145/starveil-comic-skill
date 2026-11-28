@@ -8,21 +8,18 @@ Never deliver a comic page blindly without verifying lettering and artwork. Star
 
 ## 0. Automated Zero-Typo Loop (No Manual Coordinate Guessing!)
 
-```json
-// Step A: After ready=true, run deterministic bubble QA once
-{ "tool": "get_comic_page", "arguments": { "taskId": "<taskId>", "inspectBubbles": true } }
+```bash
+# Step A (Skill-First CLI): render with --inspect-bubbles (or inspect an existing page)
+starveil page-status <taskId> --inspect-bubbles
 
-// Step B: If bubbleQa.typoAlerts is non-empty, pass alert.editRegion straight into edit_comic_page
-{
-  "tool": "edit_comic_page",
-  "arguments": {
-    "taskId": "<taskId>",
-    "clientRequestId": "auto-fix-b1",
-    "instruction": "<alert.suggestedInstruction>",
-    "region": "<alert.editRegion>"
-  }
-}
+# Step B: If bubbleQa.typoAlerts is non-empty, pass alert.editRegion straight into starveil edit
+starveil edit <taskId> "<alert.suggestedInstruction>" --region x,y,w,h --wait --out ./p01.png
+
+# Or automate an entire chapter end-to-end (OCR QA + automatic in-place bubble repair):
+starveil produce ./chapter01.md --project ./starveil-project.json --auto-qa --auto-fix --out ./pages
 ```
+
+*(Optional MCP equivalent: `get_comic_page({ taskId, inspectBubbles: true })` → `edit_comic_page({ taskId, clientRequestId, instruction, region })`.)*
 
 ---
 
@@ -85,4 +82,4 @@ Include the full connected sub-element (e.g., wrist + hand + held object, not ju
 ## 4. When to Repair vs. When to Split/Regenerate
 - **Use `edit_comic_page`** when: 1–2 bubbles have typos, one hand/prop/expression drifted, or a translated punchline needs an idiom tweak.
 - **Adjust the script & regenerate** when: the entire page layout is wrong, characters swapped roles across 3+ panels, or a balloon is physically too tiny for a 35-word paragraph (shorten the line or split into two panels first).
-- **Always refresh `open_starveil_studio({ taskId })`** after an edit so the user can scrub the **Before / After wipe slider** to verify zero seams.
+- **Always refresh `starveil studio --task <taskId>`** (or MCP `open_starveil_studio({ taskId })`) after an edit so the user can scrub the **Before / After wipe slider** in Live Studio 2.0 to verify zero seams.

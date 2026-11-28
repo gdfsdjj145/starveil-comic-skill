@@ -50,11 +50,11 @@ Never trap the user's canon inside a proprietary web form or chat transcript. Ke
 ```
 
 ### Sync Algorithm (Run Before Rendering)
-1. Read `starveil-project.json` (if present) and call `list_my_characters` via StarVeil MCP.
+1. Read `starveil-project.json` (if present) and run `starveil oc list` (or MCP `list_my_characters`).
 2. For each character needed in the upcoming scene:
-   - If `characterId` is already present and confirmed in `list_my_characters` (`readyForComics: true`), reuse it directly (`0 cr`).
-   - Else if a matching local image exists in `cast/` (or a path provided by the user), encode it as base64 and call `create_character({ name, description, referenceImageBase64 })` (**0 credits**, ready immediately), then persist the returned `characterId` into `starveil-project.json`.
-   - Only call `create_character({ generateReferenceImage: true })` (`20 cr`) when the user has **no** reference image and explicitly wants StarVeil to design a canonical full-body sheet (skip this if `freeTrial.freeFirstPageAvailable` is true and credits `< 20`).
+   - If `characterId` is already present and confirmed in `starveil oc list` (`readyForComics: true`), reuse it directly (`0 cr`).
+   - Else if a matching local image exists in `cast/` (or a path provided by the user), run `starveil oc create --name "..." --desc "..." --image ./cast/photo.png` (or MCP `create_character` with `referenceImageBase64`) — **0 credits**, ready immediately — then persist the returned `characterId` into `starveil-project.json`.
+   - Only run AI full-body generation (`starveil oc create --name "..." --desc "..." --wait` / `generateReferenceImage: true`, `20 cr`) when the user has **no** reference image and explicitly wants StarVeil to design a canonical full-body sheet (skip this if `freeTrial.freeFirstPageAvailable` is true and credits `< 20`).
 
 ---
 

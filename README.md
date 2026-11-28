@@ -1,12 +1,13 @@
-# 🎨 StarVeil Comic Studio Skill (`SKILL.md` + MCP)
+# 🎨 StarVeil Comic Studio Skill (Skill-First · Zero MCP Config)
 
-> **Plug-in Comic & Webtoon Production Desk for Claude Code, Antigravity, Cursor, Codex & OpenClaw.**
+> **Skill-First Plug-in Comic & Webtoon Production Desk for Claude Code, Codex, Cursor, Antigravity & OpenClaw.**
+> **Zero `mcp.json` editing. Zero IDE restart. Auto 1-click browser sign-in on first command.**
 > **Bring your own agent. Bring your own local scripts, novel chapters, Obsidian notes & OC folders.**
-> StarVeil is *not* a restrictive black-box story writer — it plugs a DaVinci-style live comic studio, local project checkpointing, 0-credit photo OC locking, drag-to-box editing, and 6-language localization directly into your existing agent workflow.
+> StarVeil is *not* a restrictive black-box story writer — give your agent `SKILL.md` and it plugs a DaVinci-style Live Studio 2.0 canvas, local project checkpointing, 0-credit photo OC locking, drag-to-box editing, and 6-language localization directly into your workflow.
 
 <p align="center">
   <a href="https://starveilai.com"><img src="https://img.shields.io/badge/StarVeil_2.0-Live_Studio-6D4AFF?style=for-the-badge" alt="StarVeil 2.0" /></a>
-  <a href="https://registry.modelcontextprotocol.io/v0.1/servers/com.starveilai%2Fcomic-webtoon-studio/versions/latest"><img src="https://img.shields.io/badge/Official_MCP_Registry-comic--webtoon--studio-10B981?style=for-the-badge" alt="Official MCP Registry" /></a>
+  <a href="https://starveilai.com/SKILL.md"><img src="https://img.shields.io/badge/Skill--First-Zero_MCP_Setup-10B981?style=for-the-badge" alt="Skill-First Zero MCP Setup" /></a>
   <a href="https://starveilai.com/pricing"><img src="https://img.shields.io/badge/Free_Trial-1st_Page_+_1st_Edit_0_cr-0E1016?style=for-the-badge" alt="Free Trial" /></a>
   <a href="./LICENSE"><img src="https://img.shields.io/badge/Skill_License-MIT-525866?style=for-the-badge" alt="MIT License" /></a>
   <a href="https://glama.ai/mcp/connectors/com.starveilai/star-veil-ai"><img src="https://glama.ai/mcp/connectors/com.starveilai/star-veil-ai/badges/score.svg" alt="StarVeil AI MCP connector on Glama" height="28" /></a>
@@ -18,17 +19,17 @@
 
 ---
 
-## Why a Plug-in Skill + MCP Desk (Instead of Another Closed Web Comic Agent)?
+## Why Skill-First (Instead of Heavy MCP Setup or Closed Web Comic Forms)?
 
-Your coding agent already reads your local disk and writes in your exact voice. Closed web comic apps force you to copy-paste lore into rigid forms and let a generic built-in writer mutate your dialogue.
+Your coding agent already reads your local disk and writes in your exact voice. You shouldn't have to hand-edit `mcp.json`, restart your IDE, or pay constant MCP schema token overhead just to draw comics.
 
 **StarVeil splits the workflow cleanly:**
 
 | Layer | Owned By | What It Does |
 | :--- | :--- | :--- |
-| **Story Brain & Local Files** | **Your Host Agent** (Claude Code / Antigravity / Cursor / Codex / OpenClaw) | Reads your existing novel `.md`, Obsidian vault, product docs, git history & local `cast/` photo folders in your exact voice |
+| **Story Brain & Local Files** | **Your Host Agent** (Claude Code / Codex / Cursor / Antigravity / OpenClaw) | Reads your existing novel `.md`, Obsidian vault, product docs, git history & local `cast/` photo folders in your exact voice |
 | **Production Playbook & Project State** | **This MIT-Licensed Skill Pack** (`SKILL.md` + `references/`) | Teaches your agent local project management (`starveil-project.json` + `manifest.json`), faithful script-to-panel pacing, and 3-zone box-repair QA — 100% forkable and customizable |
-| **Rendering, OC Anchors & Live Canvas** | **StarVeil Cloud MCP** (`https://starveilai.com/api/mcp`) | Handles what LLMs cannot: 0-cr photo OC locking, `previousTaskId` multi-page continuity, `0..1` drag-to-box editing, 6-lang translation, and DaVinci-style Live Studio 2.0 |
+| **Rendering, OC Anchors & Live Canvas** | **Zero-Dep `starveil` CLI + Live Studio 2.0** *(optional MCP at `/api/mcp`)* | Auto-opens 1-click browser login on first run, locks photo OCs at 0 cr, chains multi-page continuity (`previousTaskId`), fixes bubbles in-place (`0..1` bbox), translates 6 languages, and pops open Live Studio 2.0 |
 
 ---
 
@@ -55,30 +56,26 @@ starveil-comic-skill/
 
 ---
 
-## ⚡ 30-Second Setup
+## ⚡ 10-Second Setup (Skill-First — Zero MCP Config)
 
-### Claude Code (One Command)
-```bash
-claude mcp add --transport http starveil https://starveilai.com/api/mcp
-```
-Then drop `SKILL.md` + `references/` into `~/.claude/skills/starveil-comic-studio/` or run the universal installer:
+### Option 1 — Zero Install (Just Paste One Sentence to Any Agent)
+Tell Claude Code, Codex, Cursor, Antigravity, or OpenClaw:
+> *"Read `https://starveilai.com/SKILL.md` and use the StarVeil skill directly to turn my story into a comic page (no MCP config needed — auto-open browser sign-in on first run)."*
 
-### Universal Installer (Antigravity / Claude Code / Cursor / Codex / CLI)
+### Option 2 — 1-Line Skill & Zero-Dep CLI Installer (Recommended)
 ```bash
 curl -fsSL https://starveilai.com/install.sh | bash
 ```
+Installs the zero-dependency `starveil` CLI (Node 20+, zero npm packages) and drops `SKILL.md` + `references/` into Claude Code, Codex, Cursor, Antigravity, and OpenClaw automatically.
+- On the first command (`starveil balance`, `starveil page ...`, or `starveil studio`), the CLI **automatically opens 1-click browser sign-in** and saves a revocable `sv_live_...` key locally.
+- In remote/SSH/cloud sandboxes without a local browser, the CLI returns instant JSON with `verificationUrl` + `starveil auth wait <deviceCode>` so your agent never hangs.
+- Running `starveil studio --task <taskId>` automatically opens the passwordless **Live Studio 2.0** canvas right beside your terminal.
 
-### Cursor / Windsurf / Generic Streamable HTTP MCP Config
-```json
-{
-  "mcpServers": {
-    "starveil": {
-      "url": "https://starveilai.com/api/mcp"
-    }
-  }
-}
+### Option 3 — Optional Streamable HTTP MCP (No-Shell or MCP Apps Side-Pane Hosts)
+```bash
+claude mcp add --transport http starveil https://starveilai.com/api/mcp
 ```
-> **Headless / OpenClaw / n8n / CI**: Create a revocable Bearer key at [starveilai.com/app/agents](https://starveilai.com/app/agents) and pass `Authorization: Bearer sv_live_...`.
+> **Headless CI / OpenClaw / n8n**: Create a revocable key at [starveilai.com/app/agents](https://starveilai.com/app/agents) and export `STARVEIL_API_KEY="sv_live_..."`.
 
 ---
 
@@ -119,17 +116,17 @@ curl -fsSL https://starveilai.com/install.sh | bash
 
 ---
 
-## 🧰 Included MCP Tools (18 Tools + Live MCP App + 4 Native Prompts)
+## 🧰 Included Capabilities (`starveil` CLI & Optional MCP — 18 Tools + Live Studio 2.0)
 
-| Category | Tools |
+| Category | CLI Commands & Underlying Tools |
 | :--- | :--- |
-| **Interactive Canvas** | `open_starveil_studio` (Native MCP App side pane + Companion Live Studio URL) |
-| **OC Identity Vault** | `create_character` (0 cr photo lock / 20 cr AI sheet), `list_my_characters`, `get_character_status` |
-| **Comic Production** | `create_comic_page`, `get_comic_page`, `edit_comic_page` (drag-to-box + text-only mode) |
-| **Vertical Webtoons** | `create_webtoon_episode` (9:16 strip), `get_webtoon_status` |
-| **Global Localization** | `translate_comic` (EN / ZH-CN / ZH-TW / JA / KO / ES, 10 cr/page), `get_translation_status` |
+| **Interactive Canvas** | `starveil studio [--task <id>]` / `open_starveil_studio` (auto-opens Live Studio 2.0 URL + native Antigravity side pane) |
+| **OC Identity Vault** | `starveil oc create --image` / `starveil oc import` / `starveil oc list` (`create_character` 0 cr photo lock, `list_my_characters`, `get_character_status`) |
+| **Comic Production** | `starveil page` / `starveil produce --auto-qa --auto-fix` / `starveil edit` / `starveil sync` (`create_comic_page`, `get_comic_page`, `edit_comic_page`) |
+| **Vertical Webtoons** | `starveil webtoon` (`create_webtoon_episode` 9:16 strip, `get_webtoon_status`) |
+| **Global Localization** | `starveil translate` (`translate_comic` EN / ZH-CN / ZH-TW / JA / KO / ES, 10 cr/page, `get_translation_status`) |
 | **Viral Recipes** | `xhs-comic`, `article-to-comic`, `pet-or-selfie-comic`, `global-localize` |
-| **Account & Credits** | `get_me`, `get_credit_balance`, `create_topup_checkout` |
+| **Account & Credits** | `starveil auth login/wait/status/logout`, `starveil balance`, `starveil doctor`, `starveil topup` (`get_me`, `get_credit_balance`, `create_topup_checkout`) |
 
 ---
 
